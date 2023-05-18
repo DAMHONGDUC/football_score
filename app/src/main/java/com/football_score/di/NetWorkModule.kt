@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetWorkModule {
     @Provides
     fun okHttp(): OkHttpClient {
-        val loggingInteceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+        val  loggingInteceptor= HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
         return OkHttpClient.Builder()
             .addInterceptor(loggingInteceptor)
