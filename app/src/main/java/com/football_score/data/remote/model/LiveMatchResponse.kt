@@ -5,6 +5,6 @@ data class LiveMatchResponse(
     val `get`: String,
     val paging: Paging,
     val parameters: Parameters,
-    val response: List<Response>,
+    val response: List<Match>,
     val results: Int
 )

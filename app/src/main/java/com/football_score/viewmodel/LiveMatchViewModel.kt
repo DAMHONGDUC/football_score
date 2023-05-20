@@ -34,6 +34,8 @@ class LiveMatchViewModel @Inject constructor(private val liveMatchRepository: Li
             try {
                 val liveMatchResponse = liveMatchRepository.getAllLiveMatch()
                 _liveMatchState.value = MatchState.Success(liveMatchResponse)
+
+                //Log.d("liveMatchResponse", liveMatchResponse.toString());
             }
             catch (e: HttpException)
             {
