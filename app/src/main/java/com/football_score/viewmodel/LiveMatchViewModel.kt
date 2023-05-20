@@ -43,7 +43,8 @@ class LiveMatchViewModel @Inject constructor(private val liveMatchRepository: Li
             }
             catch (e: IOException)
             {
-                _liveMatchState.value = MatchState.Error("somethign wrong")
+                _liveMatchState.value = MatchState.Error("something wrong")
+                //Log.d("liveMatchResponse", e.toString())
             }
         }
     }

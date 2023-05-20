@@ -9,6 +9,6 @@ public class AppFontSize {
         val SectionTitle: TextUnit = 20.sp
         val ListTitle:TextUnit = 16.sp
         val ListItemTitle:TextUnit = 14.sp
-
+        val TeamItemTitle:TextUnit = 12.sp
     }
 }
