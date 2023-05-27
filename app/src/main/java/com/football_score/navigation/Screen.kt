@@ -1,4 +1,6 @@
 package com.football_score.navigation
 
-class Screen {
+sealed class Screen(val route: String)
+{
+    object Home: Screen( route = "home")
 }
