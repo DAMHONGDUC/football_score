@@ -22,15 +22,13 @@ import com.football_score.data.remote.model.Goals
 import com.football_score.data.remote.model.Match
 import com.football_score.data.remote.model.Status
 import com.football_score.data.remote.model.Team
-import com.football_score.viewmodel.LiveMatchViewModel
-import com.football_score.viewmodel.state.MatchState
 
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    liveMatchViewModel: LiveMatchViewModel = hiltViewModel(),
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val state = liveMatchViewModel.liveMatchState.collectAsState().value
+    val state = homeViewModel.liveMatchState.collectAsState().value
 
     Box(
         modifier = Modifier
@@ -42,10 +40,10 @@ fun HomeScreen(
         Column(modifier = Modifier.padding(20.dp)) {
             Header()
             when (state) {
-                is MatchState.Empty -> Text(text = "No data available")
-                is MatchState.Loading -> Text(text = "Loading...")
-                is MatchState.Success -> LiveMatch(listLiveMatch = state.data.response)
-                is MatchState.Error -> Text(text = state.message)
+                is HomeScreenState.Empty -> Text(text = "No data available")
+                is HomeScreenState.Loading -> Text(text = "Loading...")
+                is HomeScreenState.Success -> LiveMatch(listLiveMatch = state.data.response)
+                is HomeScreenState.Error -> Text(text = state.message)
             }
         }
     }
