@@ -1,8 +1,7 @@
 package com.football_score.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.football_score.repository.LiveMatchRepository
+import com.football_score.data.repository.LiveMatchRepository
 import com.football_score.viewmodel.state.MatchState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +11,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okio.IOException
-import org.json.JSONObject
-import org.json.JSONTokener
 import retrofit2.HttpException
 
 @HiltViewModel

@@ -1,4 +1,4 @@
-package com.football_score.repository
+package com.football_score.data.repository
 
 import com.football_score.data.remote.model.LiveMatchResponse
 import com.football_score.data.remote.service.FootballAPIService

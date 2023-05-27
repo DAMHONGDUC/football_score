@@ -1,6 +1,6 @@
 package com.football_score.di
 
-import com.football_score.constant.CommonConstants
+import com.football_score.utils.Constants
 import com.football_score.data.remote.service.FootballAPIService
 import com.football_score.utils.RequestInterceptor
 import dagger.Module
@@ -32,7 +32,7 @@ class NetWorkModule {
         return Retrofit.Builder().
         client(okHttpClient).
         addConverterFactory(GsonConverterFactory.create()).
-        baseUrl(CommonConstants.BASE_URL).
+        baseUrl(Constants.BASE_URL).
         build();
     }
 
