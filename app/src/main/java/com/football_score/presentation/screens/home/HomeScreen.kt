@@ -18,10 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.football_score.data.remote.model.Goals
-import com.football_score.data.remote.model.Match
-import com.football_score.data.remote.model.Status
-import com.football_score.data.remote.model.Team
+import com.football_score.domain.model.Goals
+import com.football_score.domain.model.Match
+import com.football_score.domain.model.Status
+import com.football_score.domain.model.Team
 
 @Composable
 fun HomeScreen(
@@ -81,7 +81,7 @@ fun Header() {
     }
 }
 @Composable
-fun ClubItem(team: Team) {
+fun ClubItem(team: com.football_score.domain.model.Team) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(80.dp)) {
         AsyncImage(
             model = team.logo,
@@ -101,7 +101,7 @@ fun ClubItem(team: Team) {
 }
 
 @Composable
-fun MatchInfo(goals: Goals, status: Status) {
+fun MatchInfo(goals: com.football_score.domain.model.Goals, status: com.football_score.domain.model.Status) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row() {
             Text(
@@ -133,7 +133,7 @@ fun MatchInfo(goals: Goals, status: Status) {
 }
 
 @Composable
-fun LiveMatchItem(match: Match) {
+fun LiveMatchItem(match: com.football_score.domain.model.Match) {
     Card(
         shape = RoundedCornerShape(20.dp), modifier = Modifier
             .width(300.dp)
@@ -176,7 +176,7 @@ fun LiveMatchItem(match: Match) {
 }
 
 @Composable
-fun LiveMatch(listLiveMatch: List<Match>) {
+fun LiveMatch(listLiveMatch: List<com.football_score.domain.model.Match>) {
     Column() {
         Text(
             text = "Live Match",

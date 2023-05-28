@@ -1,4 +1,4 @@
-package com.football_score.data.remote.model
+package com.football_score.domain.model
 
 data class Periods(
     val first: Int,

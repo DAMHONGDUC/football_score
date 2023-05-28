@@ -1,6 +1,6 @@
 package com.football_score.di
 
-import com.football_score.data.remote.service.FootballAPIService
+import com.football_score.data.remote.FootballAPIService
 import com.football_score.data.repository.MatchRepositoryImpl
 import com.football_score.domain.use_cases.MatchRepository
 import com.football_score.domain.use_cases.UseCases
