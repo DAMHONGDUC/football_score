@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.navigation.compose.rememberNavController
-import com.football_score.data.remote.model.*
 import com.football_score.navigation.SetUpNavGraph
 import com.football_score.ui.theme.Football_scoreTheme
 import dagger.hilt.android.AndroidEntryPoint

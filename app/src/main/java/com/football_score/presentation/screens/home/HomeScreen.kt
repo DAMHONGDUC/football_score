@@ -18,10 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.football_score.domain.model.Goals
-import com.football_score.domain.model.Match
-import com.football_score.domain.model.Status
-import com.football_score.domain.model.Team
+
 
 @Composable
 fun HomeScreen(

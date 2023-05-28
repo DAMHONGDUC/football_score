@@ -5,9 +5,9 @@ import com.football_score.domain.model.Match
 
 class Helper {
     companion object {
-        fun getListLeagues(listLiveMatch: List<com.football_score.domain.model.Match>): HashMap<Int, com.football_score.domain.model.League>
+        fun getListLeagues(listLiveMatch: List<Match>): HashMap<Int, League>
         {
-            val hashMap = hashMapOf<Int, com.football_score.domain.model.League>();
+            val hashMap = hashMapOf<Int, League>();
 
             for (match in listLiveMatch) {
                 hashMap.put(match.league.id ,match.league)

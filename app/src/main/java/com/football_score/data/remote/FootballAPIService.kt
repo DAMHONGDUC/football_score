@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface FootballAPIService {
     @GET(EndPoint.GET_ALL_LIVE_MATCH)
-    suspend fun getAllLiveMatch(): com.football_score.domain.model.LiveMatchResponse
+    suspend fun getAllLiveMatch(): LiveMatchResponse
 }
