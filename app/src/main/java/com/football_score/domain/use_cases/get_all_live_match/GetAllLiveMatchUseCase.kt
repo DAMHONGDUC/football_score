@@ -6,8 +6,6 @@ import com.football_score.domain.use_cases.MatchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetAllLiveMatch(private val repository: MatchRepository, private val footballAPIService: FootballAPIService) {
-    operator fun invoke(): Flow<LiveMatchResponse> = flow {
-        footballAPIService.getAllLiveMatch();
-    }
+class GetAllLiveMatchUseCase(private val repository: MatchRepository) {
+    suspend operator fun invoke() = repository.getAllLiveMatch();
 }
