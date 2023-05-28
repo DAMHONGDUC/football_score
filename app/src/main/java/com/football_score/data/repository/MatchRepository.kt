@@ -1,4 +1,4 @@
-package com.football_score.domain.use_cases
+package com.football_score.data.repository
 
 import com.football_score.domain.model.LiveMatchResponse
 
