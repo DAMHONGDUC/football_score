@@ -1,8 +1,14 @@
 package com.football_score.data.remote.entity
 
+import com.football_score.domain.model.Score
+
 data class ScoreAPIEntity(
-    val extratime: ExtratimeAPIEntity,
-    val fulltime: FulltimeAPIEntity,
-    val halftime: HalftimeAPIEntity,
-    val penalty: PenaltyAPIEntity
+    val extratime: ScoreItemAPIEntity,
+    val fulltime: ScoreItemAPIEntity,
+    val halftime: ScoreItemAPIEntity,
+    val penalty: ScoreItemAPIEntity
+)
+
+fun ScoreAPIEntity.toDomain() = Score(
+
 )

@@ -11,6 +11,9 @@ data class MatchAPIEntity(
     val teams: TeamsAPIEntity
 )
 
-//fun MatchAPIEntity.toDomain() = Match(
-//    event = this.events
-//)
+fun MatchAPIEntity.toDomain() = Match(
+ goals = this.goals.toDomain(),
+league = this.league.toDomain(),
+score = this.score.toDomain(),
+ teams= this.teams.toDomain(),
+)

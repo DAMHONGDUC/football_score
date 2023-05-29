@@ -1,7 +1,7 @@
 package com.football_score.domain.repository
 
-import com.football_score.domain.model.LiveMatchResponse
+import com.football_score.domain.model.MatchResponse
 
 interface MatchRepository {
-    suspend fun getAllLiveMatch(): LiveMatchResponse
+    suspend fun getAllLiveMatch(): MatchResponse
 }
