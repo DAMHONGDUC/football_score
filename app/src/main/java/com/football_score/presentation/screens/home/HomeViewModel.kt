@@ -2,7 +2,7 @@ package com.football_score.presentation.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.football_score.domain.use_cases.UseCases
+import com.football_score.domain.use_case.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor( private val useCases: UseCases): ViewModel() {
+class HomeViewModel @Inject constructor( private val useCase: UseCase): ViewModel() {
     private val _liveMatchState = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
     val liveMatchState: StateFlow<HomeScreenState> = _liveMatchState
 
@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor( private val useCases: UseCases): ViewMo
         viewModelScope.launch(Dispatchers.IO) {
 
             try {
-                val liveMatchResponse = useCases.getAllLiveMatch()
+                val liveMatchResponse = useCase.getAllLiveMatch()
                 _liveMatchState.value = HomeScreenState.Success(liveMatchResponse)
             }
             catch (e: HttpException)

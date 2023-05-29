@@ -1,10 +1,10 @@
-package com.football_score.di
+package com.football_score.core.di
 
 import com.football_score.data.remote.FootballAPIService
 import com.football_score.data.repository.MatchRepositoryImpl
-import com.football_score.data.repository.MatchRepository
-import com.football_score.domain.use_cases.UseCases
-import com.football_score.domain.use_cases.get_all_live_match.GetAllLiveMatchUseCase
+import com.football_score.domain.repository.MatchRepository
+import com.football_score.domain.use_case.UseCase
+import com.football_score.domain.use_case.match.GetAllLiveMatchUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,8 +22,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUseCases(repository: MatchRepository): UseCases =
-        UseCases(
+    fun provideUseCases(repository: MatchRepository): UseCase =
+        UseCase(
             getAllLiveMatch = GetAllLiveMatchUseCase(repository)
         )
 }

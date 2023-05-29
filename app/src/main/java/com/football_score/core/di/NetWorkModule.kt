@@ -1,4 +1,4 @@
-package com.football_score.di
+package com.football_score.core.di
 
 import com.football_score.utils.Constants
 import com.football_score.data.remote.FootballAPIService

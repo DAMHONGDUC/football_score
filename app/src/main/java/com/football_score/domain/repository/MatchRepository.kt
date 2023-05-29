@@ -1,4 +1,4 @@
-package com.football_score.data.repository
+package com.football_score.domain.repository
 
 import com.football_score.domain.model.LiveMatchResponse
 
