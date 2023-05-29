@@ -12,8 +12,9 @@ data class MatchAPIEntity(
 )
 
 fun MatchAPIEntity.toDomain() = Match(
- goals = this.goals.toDomain(),
-league = this.league.toDomain(),
-score = this.score.toDomain(),
- teams= this.teams.toDomain(),
+    fixture = this.fixture.toDomain(),
+    goals = this.goals.toDomain(),
+    league = this.league.toDomain(),
+    score = this.score.toDomain(),
+    teams = this.teams.toDomain(),
 )

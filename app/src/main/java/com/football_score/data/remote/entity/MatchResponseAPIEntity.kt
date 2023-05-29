@@ -14,5 +14,4 @@ data class MatchResponseAPIEntity(
 fun MatchResponseAPIEntity.toDomain() = MatchResponse(
     response = this.response.map { it.toDomain() },
     results = this.results
-
 )

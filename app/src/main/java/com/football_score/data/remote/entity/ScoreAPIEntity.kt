@@ -10,5 +10,8 @@ data class ScoreAPIEntity(
 )
 
 fun ScoreAPIEntity.toDomain() = Score(
-
+    extratime = this.extratime.toDomain(),
+    fulltime = this.fulltime.toDomain(),
+    halftime = this.halftime.toDomain(),
+    penalty = this.penalty.toDomain(),
 )
