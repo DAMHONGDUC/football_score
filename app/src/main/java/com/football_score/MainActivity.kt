@@ -9,6 +9,7 @@ import com.football_score.ui.theme.Football_scoreTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 // architecture: https://paulallies.medium.com/clean-architecture-in-the-flavour-of-jetpack-compose-dd4b0016f815
+// dependencies injection: https://medium.com/@myofficework000/dependency-injection-dagger-hilt-in-android-14a7f03050e8
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
