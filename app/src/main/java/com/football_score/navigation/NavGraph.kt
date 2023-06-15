@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.football_score.App
 import com.football_score.presentation.screens.home.HomeScreen
 
 
@@ -13,11 +14,11 @@ import com.football_score.presentation.screens.home.HomeScreen
 
 
 @Composable
-fun SetUpNavGraph(navController: NavHostController) {
+fun SetUpNavGraph(navController: NavHostController, app: App) {
     Scaffold()
     {
         NavHost(navController = navController, startDestination = Screen.Home.route) {
-            composable(route = Screen.Home.route) { HomeScreen(navController = navController) }
+            composable(route = Screen.Home.route) { HomeScreen(navController = navController, app = app) }
         }
     }
 }

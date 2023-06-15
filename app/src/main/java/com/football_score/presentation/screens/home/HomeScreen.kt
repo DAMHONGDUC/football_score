@@ -18,11 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.football_score.App
+import javax.inject.Inject
 
 
 @Composable
 fun HomeScreen(
     navController: NavHostController,
+    app: App,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state = homeViewModel.liveMatchState.collectAsState().value
@@ -35,7 +38,7 @@ fun HomeScreen(
     )
     {
         Column(modifier = Modifier.padding(20.dp)) {
-            Header()
+            Header(app)
             when (state) {
                 is HomeScreenState.Empty -> Text(text = "No data available")
                 is HomeScreenState.Loading -> Text(text = "Loading...")
@@ -47,7 +50,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun Header() {
+fun Header(app: App) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -67,7 +70,7 @@ fun Header() {
                     modifier = Modifier.size(24.dp)
                 )
             }
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { app.changeTheme() }) {
                 Icon(
                     imageVector = Icons.Filled.DarkMode,
                     contentDescription = "Mode Icon",

@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.football_score.navigation.SetUpNavGraph
 import com.football_score.ui.theme.Football_scoreTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 // architecture: https://paulallies.medium.com/clean-architecture-in-the-flavour-of-jetpack-compose-dd4b0016f815
 // dependencies injection: https://medium.com/@myofficework000/dependency-injection-dagger-hilt-in-android-14a7f03050e8
@@ -19,12 +20,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var app: App
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             val navController = rememberNavController()
-            Football_scoreTheme(darkTheme = true) {
-                SetUpNavGraph(navController = navController)
+            Football_scoreTheme(darkTheme = app.isDark.value) {
+                SetUpNavGraph(navController = navController, app = app)
             }
         }
     }
