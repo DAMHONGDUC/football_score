@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.football_score.App
-import com.football_score.presentation.screens.home.HomeScreen
+import com.football_score.ui.screens.home.HomeScreen
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
