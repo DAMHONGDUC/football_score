@@ -10,4 +10,7 @@ class MatchRepositoryImpl @Inject constructor(private val footballAPIService: Fo
     MatchRepository {
     override suspend fun getAllLiveMatch(): MatchResponse =
         footballAPIService.getAllLiveMatch().toDomain();
+
+    override suspend fun getAllHotMatch(): MatchResponse =
+        footballAPIService.getAllHotMatch().toDomain();
 }

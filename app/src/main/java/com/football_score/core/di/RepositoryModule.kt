@@ -4,6 +4,7 @@ import com.football_score.data.remote.FootballAPIService
 import com.football_score.data.repository.MatchRepositoryImpl
 import com.football_score.domain.repository.MatchRepository
 import com.football_score.domain.use_case.UseCase
+import com.football_score.domain.use_case.match.GetAllHotMatchUseCase
 import com.football_score.domain.use_case.match.GetAllLiveMatchUseCase
 import dagger.Module
 import dagger.Provides
@@ -24,6 +25,7 @@ class RepositoryModule {
     @Singleton
     fun provideUseCases(repository: MatchRepository): UseCase =
         UseCase(
-            getAllLiveMatch = GetAllLiveMatchUseCase(repository)
+            getAllLiveMatch = GetAllLiveMatchUseCase(repository),
+            getAllHotMatch = GetAllHotMatchUseCase(repository)
         )
 }

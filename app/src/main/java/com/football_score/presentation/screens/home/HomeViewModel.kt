@@ -15,10 +15,18 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor( private val useCase: UseCase): ViewModel() {
     private val _liveMatchState = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
+    private val _hotMatchState = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
+
     val liveMatchState: StateFlow<HomeScreenState> = _liveMatchState
+    val hotMatchState: StateFlow<HomeScreenState> = _hotMatchState
 
     init {
         getAllLiveMatch()
+    }
+
+    private fun getAllHotMatch()
+    {
+
     }
 
 

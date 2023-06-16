@@ -8,4 +8,7 @@ import retrofit2.http.GET
 interface FootballAPIService {
     @GET(EndPoint.GET_ALL_LIVE_MATCH)
     suspend fun getAllLiveMatch(): MatchResponseAPIEntity
+
+    @GET(EndPoint.GET_ALL_HOT_MATCH)
+    suspend fun getAllHotMatch(): MatchResponseAPIEntity
 }
