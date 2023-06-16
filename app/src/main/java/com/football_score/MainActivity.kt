@@ -18,6 +18,8 @@ import javax.inject.Inject
 // @Inject - constructor: nói cho dagger-hilt biết cái constructor nào dùng để tạo instance & những dependencies của constructor
 // @Inject - field: ko thể private, có chức năng lấy các field ở các class có @Inject trong class  @AndroidEntryPoint
 
+// https://github.com/piashcse/Hilt-MVVM-Compose-Movie
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
