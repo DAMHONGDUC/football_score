@@ -15,6 +15,8 @@ import androidx.compose.runtime.mutableStateOf
 
 // https://github.com/piashcse/Hilt-MVVM-Compose-Movie
 
+// UI: https://dribbble.com/shots/20008455-Live-Score-Mobile-App
+
 @HiltAndroidApp
 class App : Application() {
     val isDark = mutableStateOf(false)
