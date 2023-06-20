@@ -1,6 +1,6 @@
 package com.football_score.data.remote.service
 
-import com.football_score.data.remote.entity.match.BaseMatchResponseAPIEntity
+import com.football_score.data.remote.entity.match_response.BaseMatchResponseAPIEntity
 import com.football_score.utils.EndPoint
 import retrofit2.http.GET
 

@@ -1,8 +1,7 @@
-package com.football_score.data.remote.entity.league_team
+package com.football_score.data.remote.entity.league_team_response
 
 import com.football_score.data.remote.entity.*
 import com.football_score.domain.model.LeagueTeam
-import com.football_score.domain.model.Match
 
 data class TeamResponseAPIEntity(
     val teams: TeamsAPIEntity,

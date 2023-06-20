@@ -1,4 +1,4 @@
-package com.football_score.data.remote.entity.match
+package com.football_score.data.remote.entity.match_response
 
 import com.football_score.data.remote.entity.*
 import com.football_score.domain.model.*

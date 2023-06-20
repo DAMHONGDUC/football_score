@@ -1,8 +1,8 @@
-package com.football_score.data.remote.entity.match
+package com.football_score.data.remote.entity.match_response
 
 import com.football_score.data.remote.entity.PagingAPIEntity
 import com.football_score.data.remote.entity.ParametersAPIEntity
-import com.football_score.domain.model.match.MatchResponse
+import com.football_score.domain.model.match_response.MatchResponse
 
 data class BaseMatchResponseAPIEntity(
     val get: String,
