@@ -7,5 +7,5 @@ data class Match(
     val goals: Goals,
     val league: League,
     val score: Score,
-    val teams: Teams
+    val teams: Teams,
 )

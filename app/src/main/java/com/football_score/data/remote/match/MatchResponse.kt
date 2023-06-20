@@ -1,8 +1,9 @@
-package com.football_score.data.remote.entity
+package com.football_score.data.remote.match
 
+import com.football_score.data.remote.entity.*
 import com.football_score.domain.model.*
 
-data class MatchAPIEntity(
+data class MatchResponse(
     val events: List<EventAPIEntity>,
     val fixture: FixtureAPIEntity,
     val goals: GoalsAPIEntity,
@@ -11,10 +12,10 @@ data class MatchAPIEntity(
     val teams: TeamsAPIEntity
 )
 
-fun MatchAPIEntity.toDomain() = Match(
+fun MatchResponse.toDomain() = Match(
     fixture = this.fixture.toDomain(),
     goals = this.goals.toDomain(),
     league = this.league.toDomain(),
     score = this.score.toDomain(),
-    teams = this.teams.toDomain(),
+    teams = this.teams.toDomain()
 )

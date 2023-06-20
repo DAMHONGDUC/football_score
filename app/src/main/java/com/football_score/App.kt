@@ -17,6 +17,8 @@ import androidx.compose.runtime.mutableStateOf
 
 // UI: https://dribbble.com/shots/20008455-Live-Score-Mobile-App
 
+// FootBall API: https://www.api-football.com/documentation-v3
+
 @HiltAndroidApp
 class App : Application() {
     val isDark = mutableStateOf(false)

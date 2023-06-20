@@ -1,6 +1,7 @@
 package com.football_score.data.remote.entity
 
-data class EventAPIEntity(
+data class
+EventAPIEntity(
     val assist: AssistAPIEntity,
     val comments: String?,
     val detail: String,

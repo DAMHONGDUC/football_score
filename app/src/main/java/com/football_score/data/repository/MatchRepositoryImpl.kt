@@ -1,7 +1,7 @@
 package com.football_score.data.repository
 
 import com.football_score.data.remote.FootballAPIService
-import com.football_score.data.remote.entity.toDomain
+import com.football_score.data.remote.match.toDomain
 import com.football_score.domain.model.MatchResponse
 import com.football_score.domain.repository.MatchRepository
 import javax.inject.Inject
