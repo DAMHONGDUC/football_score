@@ -21,6 +21,8 @@ import androidx.compose.runtime.mutableStateOf
 
 // call multi API: https://inside.caratlane.com/ways-to-hit-multiple-api-calls-efficiently-with-kotlin-coroutine-threads-34a6cedfec68
 
+// kotlin coroutine: https://medium.com/@krsobhana10/what-is-kotlin-coroutines-and-how-will-it-benefit-us-fb6072bbb313
+
 @HiltAndroidApp
 class App : Application() {
     val isDark = mutableStateOf(false)
