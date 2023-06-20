@@ -10,6 +10,8 @@ import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +31,12 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state = homeViewModel.liveMatchState.collectAsState().value
+
+    val (liveMatch, setLiveMatch) = remember {
+        mutableStateOf(null)
+    }
+
+    
 
     Box(
         modifier = Modifier
@@ -80,6 +88,7 @@ fun Header(app: App) {
         }
     }
 }
+
 @Composable
 fun ClubItem(team: com.football_score.domain.model.Team) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(80.dp)) {
@@ -101,7 +110,10 @@ fun ClubItem(team: com.football_score.domain.model.Team) {
 }
 
 @Composable
-fun MatchInfo(goals: com.football_score.domain.model.Goals, status: com.football_score.domain.model.Status) {
+fun MatchInfo(
+    goals: com.football_score.domain.model.Goals,
+    status: com.football_score.domain.model.Status
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row() {
             Text(

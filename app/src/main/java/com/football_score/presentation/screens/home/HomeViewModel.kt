@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor( private val useCase: UseCase): ViewMode
 
             try {
                 val liveMatchResponse = useCase.getAllLiveMatch()
-//                val leagueTeamResponse = useCase.getLeagueTeam()
+                val leagueTeamResponse = useCase.getLeagueTeam()
                 _liveMatchState.value = HomeScreenState.Success(liveMatchResponse)
             }
             catch (e: HttpException)
