@@ -1,7 +1,7 @@
 package com.football_score.core.di
 
 import com.football_score.utils.Constants
-import com.football_score.data.remote.FootballAPIService
+import com.football_score.data.remote.service.FootballAPIService
 import com.football_score.utils.RequestInterceptor
 import dagger.Module
 import dagger.Provides

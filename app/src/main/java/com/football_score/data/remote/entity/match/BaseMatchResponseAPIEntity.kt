@@ -1,21 +1,20 @@
-@file:JvmName("LiveMatchResponseKt")
-
-package com.football_score.data.remote.match
+package com.football_score.data.remote.entity.match
 
 import com.football_score.data.remote.entity.PagingAPIEntity
 import com.football_score.data.remote.entity.ParametersAPIEntity
-import com.football_score.domain.model.MatchResponse
+import com.football_score.domain.model.match.MatchResponse
 
-data class BaseMatchResponse(
+data class BaseMatchResponseAPIEntity(
     val get: String,
     val parameters: ParametersAPIEntity,
     val errors: List<Any>,
     val results: Int,
     val paging: PagingAPIEntity,
-    val response: List<com.football_score.data.remote.match.MatchResponse>,
+    val response: List<MatchResponseAPIEntity>,
 )
 
-fun BaseMatchResponse.toDomain() = MatchResponse(
+fun BaseMatchResponseAPIEntity.toDomain() = MatchResponse(
     response = this.response.map { it.toDomain() },
-    results = this.results
+    results = this.results,
+    errors = this.errors
 )
