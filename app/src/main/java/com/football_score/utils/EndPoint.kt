@@ -4,6 +4,12 @@ object EndPoint {
     const val GET_ALL_LIVE_MATCH: String = "/fixtures?live=all"
 
     const val GET_ALL_HOT_MATCH: String = "/fixtures?live=all"
+
+
+
+    const val FIXTURES: String = "/fixtures"
+
+    const val TEAMS: String = "/teams"
 }
 
 // Premier League -> leagues = 39

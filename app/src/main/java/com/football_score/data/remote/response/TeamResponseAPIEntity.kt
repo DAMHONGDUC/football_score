@@ -1,4 +1,4 @@
-package com.football_score.data.remote.entity.league_team_response
+package com.football_score.data.remote.response
 
 import com.football_score.data.remote.entity.*
 import com.football_score.domain.model.LeagueTeam

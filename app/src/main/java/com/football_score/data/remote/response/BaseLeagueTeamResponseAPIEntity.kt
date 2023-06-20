@@ -1,20 +1,21 @@
-package com.football_score.data.remote.entity.match_response
+package com.football_score.data.remote.response
 
 import com.football_score.data.remote.entity.PagingAPIEntity
 import com.football_score.data.remote.entity.ParametersAPIEntity
-import com.football_score.domain.model.match_response.MatchResponse
+import com.football_score.domain.response.LeagueTeamResponse
 
-data class BaseMatchResponseAPIEntity(
+data class BaseLeagueTeamResponseAPIEntity(
     val get: String,
     val parameters: ParametersAPIEntity,
     val errors: List<Any>,
     val results: Int,
     val paging: PagingAPIEntity,
-    val response: List<MatchResponseAPIEntity>,
+    val response: List<TeamResponseAPIEntity>,
 )
 
-fun BaseMatchResponseAPIEntity.toDomain() = MatchResponse(
+fun BaseLeagueTeamResponseAPIEntity.toDomain() = LeagueTeamResponse(
     response = this.response.map { it.toDomain() },
     results = this.results,
     errors = this.errors
 )
+

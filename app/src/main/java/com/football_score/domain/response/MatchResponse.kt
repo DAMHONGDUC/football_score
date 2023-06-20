@@ -1,4 +1,4 @@
-package com.football_score.domain.model.match_response
+package com.football_score.domain.response
 
 import com.football_score.domain.model.Match
 
