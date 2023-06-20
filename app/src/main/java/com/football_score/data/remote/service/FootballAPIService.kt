@@ -14,7 +14,7 @@ interface FootballAPIService {
     suspend fun getFixtures(@Query("live") live: String?): BaseMatchResponseAPIEntity
 
     @GET(EndPoint.TEAMS)
-    suspend fun getLeagueTeam(
+    suspend fun getLeagues(
         @Query("league") league: String?,
         @Query("season") season: String?,
         @Query("country") country: String?,

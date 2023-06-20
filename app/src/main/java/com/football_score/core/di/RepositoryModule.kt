@@ -6,6 +6,7 @@ import com.football_score.domain.repository.MatchRepository
 import com.football_score.domain.use_case.UseCase
 import com.football_score.domain.use_case.match.GetAllHotMatchUseCase
 import com.football_score.domain.use_case.match.GetAllLiveMatchUseCase
+import com.football_score.domain.use_case.team.GetLeagueTeamUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,7 @@ class RepositoryModule {
     fun provideUseCases(repository: MatchRepository): UseCase =
         UseCase(
             getAllLiveMatch = GetAllLiveMatchUseCase(repository),
-            getAllHotMatch = GetAllHotMatchUseCase(repository)
+            getAllHotMatch = GetAllHotMatchUseCase(repository),
+            getLeagueTeam = GetLeagueTeamUseCase(repository)
         )
 }

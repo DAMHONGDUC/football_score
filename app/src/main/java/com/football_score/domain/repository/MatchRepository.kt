@@ -1,5 +1,6 @@
 package com.football_score.domain.repository
 
+import com.football_score.domain.model.response.LeagueTeamResponse
 import com.football_score.domain.model.response.MatchResponse
 
 interface MatchRepository {
@@ -7,5 +8,5 @@ interface MatchRepository {
 
     suspend fun getAllHotMatch(): MatchResponse
 
-    suspend fun getLeagueTeam( ): MatchResponse
+    suspend fun getLeagueTeam( ): LeagueTeamResponse
 }
