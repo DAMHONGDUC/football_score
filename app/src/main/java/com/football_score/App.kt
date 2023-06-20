@@ -19,6 +19,8 @@ import androidx.compose.runtime.mutableStateOf
 
 // FootBall API: https://www.api-football.com/documentation-v3
 
+// call multi API: https://inside.caratlane.com/ways-to-hit-multiple-api-calls-efficiently-with-kotlin-coroutine-threads-34a6cedfec68
+
 @HiltAndroidApp
 class App : Application() {
     val isDark = mutableStateOf(false)
