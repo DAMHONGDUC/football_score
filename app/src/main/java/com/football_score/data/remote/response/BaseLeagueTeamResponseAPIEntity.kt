@@ -2,7 +2,7 @@ package com.football_score.data.remote.response
 
 import com.football_score.data.remote.entity.PagingAPIEntity
 import com.football_score.data.remote.entity.ParametersAPIEntity
-import com.football_score.domain.response.LeagueTeamResponse
+import com.football_score.domain.model.response.LeagueTeamResponse
 
 data class BaseLeagueTeamResponseAPIEntity(
     val get: String,

@@ -1,6 +1,6 @@
 package com.football_score.presentation.screens.home
 
-import com.football_score.domain.response.MatchResponse
+import com.football_score.domain.model.response.MatchResponse
 
 
 sealed class HomeScreenState() {
