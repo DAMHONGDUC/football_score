@@ -1,9 +1,7 @@
 package com.football_score.presentation.screens.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.football_score.data.remote.request.FixturesParamRequest
 import com.football_score.domain.use_case.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,24 +21,19 @@ class HomeViewModel @Inject constructor( private val useCase: UseCase): ViewMode
     val liveMatchState: StateFlow<HomeScreenState> = _liveMatchState
     val hotMatchState: StateFlow<HomeScreenState> = _hotMatchState
 
-    init {
-        getAllLiveMatch()
-    }
-
-    private fun getAllHotMatch()
+    public fun getAllHotMatch()
     {
 
     }
 
 
-    private fun getAllLiveMatch() {
+    public fun getData() {
         _liveMatchState.value = HomeScreenState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
 
             try {
                 val liveMatchResponse = useCase.getAllLiveMatch()
-                val leagueTeamResponse = useCase.getLeagueTeam()
                 _liveMatchState.value = HomeScreenState.Success(liveMatchResponse)
             }
             catch (e: HttpException)

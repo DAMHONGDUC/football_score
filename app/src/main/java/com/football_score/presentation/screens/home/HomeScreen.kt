@@ -8,10 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -21,7 +18,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.football_score.App
-import javax.inject.Inject
 
 
 @Composable
@@ -32,11 +28,9 @@ fun HomeScreen(
 ) {
     val state = homeViewModel.liveMatchState.collectAsState().value
 
-    val (liveMatch, setLiveMatch) = remember {
-        mutableStateOf(null)
+    LaunchedEffect(true) {
+        homeViewModel.getData();
     }
-
-    
 
     Box(
         modifier = Modifier
