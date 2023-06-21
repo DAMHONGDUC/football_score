@@ -1,7 +1,6 @@
-package com.football_score.presentation.screens.home
+package com.football_score.presentation.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -19,29 +18,44 @@ import com.football_score.domain.model.Status
 import com.football_score.domain.model.Team
 
 @Composable
-fun LiveMatch(listLiveMatch: List<Match>) {
-    Column() {
-        Text(
-            text = "Live Match",
-            style = MaterialTheme.typography.h2,
-            color = MaterialTheme.colors.onBackground
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-
-        if (listLiveMatch.isEmpty()) {
-            Text(text = "No Live Match", modifier = Modifier.padding(10.dp))
-        } else {
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
+fun LiveMatchCard(match: Match) {
+    Card(
+        shape = RoundedCornerShape(20.dp), modifier = Modifier
+            .width(300.dp)
+            .height(200.dp),
+        backgroundColor = MaterialTheme.colors.onSecondary
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = match.league.name,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.h3,
+                color = MaterialTheme.colors.background
             )
-            {
-                items(listLiveMatch.size)
-                {
-                    LiveMatchItem(match = listLiveMatch[it])
-                }
+            Text(
+                text = match.league.round,
+                style = MaterialTheme.typography.h5,
+                color = MaterialTheme.colors.background
+            )
+            Text(
+                text = match.league.country,
+                style = MaterialTheme.typography.h5,
+                color = MaterialTheme.colors.background
+            )
+            Row(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ClubItem(team = match.teams.home)
+                MatchInfo(goals = match.goals, status = match.fixture.status)
+                ClubItem(team = match.teams.away)
             }
-
-
         }
     }
 }
@@ -100,47 +114,3 @@ fun MatchInfo(
         )
     }
 }
-
-@Composable
-fun LiveMatchItem(match: com.football_score.domain.model.Match) {
-    Card(
-        shape = RoundedCornerShape(20.dp), modifier = Modifier
-            .width(300.dp)
-            .height(200.dp),
-        backgroundColor = MaterialTheme.colors.onSecondary
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = match.league.name,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.h3,
-                color = MaterialTheme.colors.background
-            )
-            Text(
-                text = match.league.round,
-                style = MaterialTheme.typography.h5,
-                color = MaterialTheme.colors.background
-            )
-            Text(
-                text = match.league.country,
-                style = MaterialTheme.typography.h5,
-                color = MaterialTheme.colors.background
-            )
-            Row(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ClubItem(team = match.teams.home)
-                MatchInfo(goals = match.goals, status = match.fixture.status)
-                ClubItem(team = match.teams.away)
-            }
-        }
-    }
-}
-
