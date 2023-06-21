@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.football_score.App
-import com.football_score.domain.model.*
 
 
 @Composable
@@ -22,10 +21,10 @@ fun HomeScreen(
     app: App,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val homeState = homeViewModel.state.collectAsState().value
+    val liveMatches = homeViewModel.liveMatches.collectAsState().value
 
     LaunchedEffect(true) {
-        homeViewModel.getData();
+        homeViewModel.getAllLiveMatch();
     }
 
     Scaffold(
@@ -36,14 +35,13 @@ fun HomeScreen(
                     .padding(20.dp)
                     .background(MaterialTheme.colors.background)
             ) {
-                when (homeState) {
+
+                when (liveMatches) {
                     is HomeScreenState.Empty -> Text(text = "No data available")
                     is HomeScreenState.Loading -> Text(text = "Loading...")
-                    is HomeScreenState.Success -> Body(
-                        listLiveMatch = homeState.matchResponse.response,
-                        listLeagueTeam = homeState.leagueTeamResponse.response
-                    )
-                    is HomeScreenState.Error -> Text(text = homeState.message)
+                    is HomeScreenState.Success -> LiveMatch(listLiveMatch = liveMatches.data.response)
+                    is HomeScreenState.Error -> Text(text = liveMatches.message)
+                    else -> {}
                 }
             }
         }
@@ -82,10 +80,4 @@ fun Header(app: App) {
             }
         }
     }
-}
-
-@Composable
-fun Body(listLiveMatch: List<Match>, listLeagueTeam: List<LeagueTeam>) {
-    LiveMatch(listLiveMatch = listLiveMatch)
-    HotMatch()
 }
