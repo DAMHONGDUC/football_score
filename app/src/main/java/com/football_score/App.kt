@@ -23,6 +23,8 @@ import androidx.compose.runtime.mutableStateOf
 
 // kotlin coroutine: https://medium.com/@krsobhana10/what-is-kotlin-coroutines-and-how-will-it-benefit-us-fb6072bbb313
 
+// React to Jetpack Compose: https://tigeroakes.com/posts/react-to-compose-dictionary/
+
 @HiltAndroidApp
 class App : Application() {
     val isDark = mutableStateOf(false)

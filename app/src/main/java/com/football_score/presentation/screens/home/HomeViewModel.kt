@@ -14,35 +14,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor( private val useCase: UseCase): ViewModel() {
-    private val _liveMatchState = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
-    private val _hotMatchState = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
-    private val _leagueTeamState = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
-
-    val liveMatchState: StateFlow<HomeScreenState> = _liveMatchState
-    val hotMatchState: StateFlow<HomeScreenState> = _hotMatchState
-
-    public fun getAllHotMatch()
-    {
-
-    }
-
+    private val _state = MutableStateFlow<HomeScreenState>(HomeScreenState.Empty)
+    val state: StateFlow<HomeScreenState> = _state
 
     public fun getData() {
-        _liveMatchState.value = HomeScreenState.Loading
+        _state.value = HomeScreenState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
 
             try {
                 val liveMatchResponse = useCase.getAllLiveMatch()
-                _liveMatchState.value = HomeScreenState.Success(liveMatchResponse)
+                val leagueTeamResponse = useCase.getLeagueTeam()
+
+                _state.value = HomeScreenState.Success(liveMatchResponse, leagueTeamResponse)
             }
             catch (e: HttpException)
             {
-                _liveMatchState.value = HomeScreenState.Error("internet issue")
+                _state.value = HomeScreenState.Error("internet issue")
             }
             catch (e: IOException)
             {
-                _liveMatchState.value = HomeScreenState.Error("something wrong")
+                _state.value = HomeScreenState.Error("something wrong")
             }
         }
     }

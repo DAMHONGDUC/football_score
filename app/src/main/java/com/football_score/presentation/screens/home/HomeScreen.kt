@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.football_score.App
+import com.football_score.domain.model.*
 
 
 @Composable
@@ -26,7 +27,7 @@ fun HomeScreen(
     app: App,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val state = homeViewModel.liveMatchState.collectAsState().value
+    val homeState = homeViewModel.state.collectAsState().value
 
     LaunchedEffect(true) {
         homeViewModel.getData();
@@ -41,14 +42,22 @@ fun HomeScreen(
     {
         Column(modifier = Modifier.padding(20.dp)) {
             Header(app)
-            when (state) {
+            when (homeState) {
                 is HomeScreenState.Empty -> Text(text = "No data available")
                 is HomeScreenState.Loading -> Text(text = "Loading...")
-                is HomeScreenState.Success -> LiveMatch(listLiveMatch = state.data.response)
-                is HomeScreenState.Error -> Text(text = state.message)
+                is HomeScreenState.Success -> Body(
+                    listLiveMatch = homeState.matchResponse.response,
+                    listLeagueTeam = homeState.leagueTeamResponse.response
+                )
+                is HomeScreenState.Error -> Text(text = homeState.message)
             }
         }
     }
+}
+
+@Composable
+fun Body(listLiveMatch: List<Match>, listLeagueTeam: List<LeagueTeam>) {
+    LiveMatch(listLiveMatch = listLiveMatch)
 }
 
 @Composable
@@ -84,7 +93,7 @@ fun Header(app: App) {
 }
 
 @Composable
-fun ClubItem(team: com.football_score.domain.model.Team) {
+fun ClubItem(team: Team) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(80.dp)) {
         AsyncImage(
             model = team.logo,
@@ -105,8 +114,8 @@ fun ClubItem(team: com.football_score.domain.model.Team) {
 
 @Composable
 fun MatchInfo(
-    goals: com.football_score.domain.model.Goals,
-    status: com.football_score.domain.model.Status
+    goals: Goals,
+    status: Status
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row() {
@@ -182,7 +191,7 @@ fun LiveMatchItem(match: com.football_score.domain.model.Match) {
 }
 
 @Composable
-fun LiveMatch(listLiveMatch: List<com.football_score.domain.model.Match>) {
+fun LiveMatch(listLiveMatch: List<Match>) {
     Column() {
         Text(
             text = "Live Match",
