@@ -43,7 +43,7 @@ fun HomeScreen(
     LaunchedEffect(isReload) {
         if (isReload) {
             homeViewModel.getAllLiveMatch();
-            homeViewModel.getLeagueTeam();
+            //homeViewModel.getLeagueTeam();
 
             setIsReload(false);
         }
