@@ -54,7 +54,7 @@ fun HomeScreen(
                 when (liveMatches) {
                     is ViewModelState.Empty -> Text(text = "No liveMatches data available")
                     is ViewModelState.Loading -> Text(text = "liveMatches Loading...")
-                    is ViewModelState.Success -> LiveMatch(listLiveMatch = liveMatches.data.response)
+                    is ViewModelState.Success -> LiveMatch(listLiveMatch = liveMatches.data.response!!)
                     is ViewModelState.Error -> Text(text = liveMatches.message)
                 }
 
@@ -63,7 +63,7 @@ fun HomeScreen(
                 when (leagueTeams) {
                     is ViewModelState.Empty -> Text(text = "No leagueTeams data available")
                     is ViewModelState.Loading -> Text(text = "leagueTeams Loading...")
-                    is ViewModelState.Success -> HotMatch(listLeagueTeam = leagueTeams.data.response)
+                    is ViewModelState.Success -> HotMatch(listLeagueTeam = leagueTeams.data.response!!)
                     is ViewModelState.Error -> Text(text = leagueTeams.message)
                 }
             }

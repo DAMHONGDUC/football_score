@@ -41,10 +41,12 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
             try {
                 val leagueTeamResponse = call.await()
 
-                if (leagueTeamResponse.errors.requests != null) {
-                    _leagueTeam.value = ViewModelState.Error("Get League Team Failed: " + leagueTeamResponse.errors.requests)
-                } else
-                    _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
+                _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
+
+
+//                if (leagueTeamResponse.response.size != 0)
+//                    _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
+//                else _leagueTeam.value =ViewModelState.Error("Server side error")
             } catch (e: HttpException) {
                 _leagueTeam.value = ViewModelState.Error("internet issue")
             } catch (e: IOException) {
@@ -63,14 +65,15 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
             try {
                 val liveMatchResponse = call.await()
 
-                if (liveMatchResponse.errors.requests != null) {
-                    _liveMatches.value = ViewModelState.Error("Get All Live Match Failed: " + liveMatchResponse.errors.requests)
-                } else
-                    _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
+                _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
+
+//                if (liveMatchResponse.response?.size != 0)
+//                    _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
+//                else _liveMatches.value  = ViewModelState.Error("Server side error")
             } catch (e: HttpException) {
-                _liveMatches.value = ViewModelState.Error("internet issue")
+                _liveMatches.value = ViewModelState.Error("Internet issue")
             } catch (e: IOException) {
-                _liveMatches.value = ViewModelState.Error("something wrong")
+                _liveMatches.value = ViewModelState.Error("Something wrong")
             }
         }
     }
