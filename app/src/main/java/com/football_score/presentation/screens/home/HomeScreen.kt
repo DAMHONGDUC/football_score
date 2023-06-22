@@ -1,5 +1,6 @@
 package com.football_score.presentation.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -27,13 +29,21 @@ fun HomeScreen(
     val liveMatches = homeViewModel.liveMatches.collectAsState().value
     val leagueTeams = homeViewModel.leagueTeam.collectAsState().value
 
-    LaunchedEffect(true) {
-        homeViewModel.getAllLiveMatch();
-        homeViewModel.getLeagueTeam();
+    val (isReload, setIsReload) = remember {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(isReload) {
+        if (isReload) {
+            homeViewModel.getAllLiveMatch();
+            homeViewModel.getLeagueTeam();
+
+            setIsReload(false);
+        }
     }
 
     Scaffold(
-        topBar = { AppHeader(app = app) },
+        topBar = { AppHeader(app = app, setIsReload = setIsReload) },
         content = { padding ->
             Column(
                 modifier = Modifier
@@ -47,6 +57,8 @@ fun HomeScreen(
                     is ViewModelState.Success -> LiveMatch(listLiveMatch = liveMatches.data.response)
                     is ViewModelState.Error -> Text(text = liveMatches.message)
                 }
+
+                Spacer(modifier = Modifier.height(20.dp))
 
                 when (leagueTeams) {
                     is ViewModelState.Empty -> Text(text = "No leagueTeams data available")

@@ -1,5 +1,6 @@
 package com.football_score.presentation.screens.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.football_score.domain.model.response.LeagueTeamResponse
@@ -8,6 +9,7 @@ import com.football_score.domain.model.response.ViewModelState
 import com.football_score.domain.use_case.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,18 +22,29 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
     private val _liveMatches = MutableStateFlow<ViewModelState<MatchResponse>>(ViewModelState.Empty)
     val liveMatches: StateFlow<ViewModelState<MatchResponse>> = _liveMatches
 
-    private val _leagueTeam = MutableStateFlow<ViewModelState<LeagueTeamResponse>>(ViewModelState.Empty)
+    private val _leagueTeam =
+        MutableStateFlow<ViewModelState<LeagueTeamResponse>>(ViewModelState.Empty)
     val leagueTeam: StateFlow<ViewModelState<LeagueTeamResponse>> = _leagueTeam
+
+    init {
+        getAllLiveMatch();
+        getLeagueTeam();
+    }
 
     public fun getLeagueTeam() {
         _leagueTeam.value = ViewModelState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            try {
-                val leagueTeamResponse = useCase.getLeagueTeam()
+            val call = async { useCase.getLeagueTeam() }
 
-                _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
+            try {
+                val leagueTeamResponse = call.await()
+
+                if (leagueTeamResponse.errors.requests != null) {
+                    _leagueTeam.value = ViewModelState.Error("Get League Team Failed: " + leagueTeamResponse.errors.requests)
+                } else
+                    _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
             } catch (e: HttpException) {
                 _leagueTeam.value = ViewModelState.Error("internet issue")
             } catch (e: IOException) {
@@ -45,10 +58,15 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            try {
-                val liveMatchResponse = useCase.getAllLiveMatch()
+            val call = async { useCase.getAllLiveMatch() }
 
-                _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
+            try {
+                val liveMatchResponse = call.await()
+
+                if (liveMatchResponse.errors.requests != null) {
+                    _liveMatches.value = ViewModelState.Error("Get All Live Match Failed: " + liveMatchResponse.errors.requests)
+                } else
+                    _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
             } catch (e: HttpException) {
                 _liveMatches.value = ViewModelState.Error("internet issue")
             } catch (e: IOException) {
