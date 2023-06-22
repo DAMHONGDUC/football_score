@@ -42,11 +42,6 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
                 val leagueTeamResponse = call.await()
 
                 _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
-
-
-//                if (leagueTeamResponse.response.size != 0)
-//                    _leagueTeam.value = ViewModelState.Success(data = leagueTeamResponse)
-//                else _leagueTeam.value =ViewModelState.Error("Server side error")
             } catch (e: HttpException) {
                 _leagueTeam.value = ViewModelState.Error("internet issue")
             } catch (e: IOException) {
@@ -66,10 +61,6 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
                 val liveMatchResponse = call.await()
 
                 _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
-
-//                if (liveMatchResponse.response?.size != 0)
-//                    _liveMatches.value = ViewModelState.Success(data = liveMatchResponse)
-//                else _liveMatches.value  = ViewModelState.Error("Server side error")
             } catch (e: HttpException) {
                 _liveMatches.value = ViewModelState.Error("Internet issue")
             } catch (e: IOException) {
