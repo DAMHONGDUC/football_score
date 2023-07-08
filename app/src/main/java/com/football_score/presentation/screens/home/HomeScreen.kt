@@ -6,15 +6,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -84,6 +89,7 @@ fun ExposedDropdownLeagueTeam(listLeagueTeam: List<LeagueTeam>) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf(listLeagueTeam[0]) }
+    val dropdownWidth = 250.dp;
 
     Box(
         modifier = Modifier
@@ -96,20 +102,39 @@ fun ExposedDropdownLeagueTeam(listLeagueTeam: List<LeagueTeam>) {
                 expanded = !expanded
             }
         ) {
-            Row() {
-                TextField(
-                    value = selectedItem.team.name,
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                    leadingIcon = {
-                        AsyncImage(
-                            model = selectedItem.team.logo,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .width(20.dp))
-                    },
+            Row(
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colors.onSecondary,
+                        shape = RoundedCornerShape(dropdownWidth / 2)
+                    )
+                    .width(dropdownWidth)
+                    .padding(10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                AsyncImage(
+                    model = selectedItem.team.logo,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(30.dp)
+                        .padding(PaddingValues(start = 6.dp))
                 )
+                Text(text = selectedItem.team.name, color = MaterialTheme.colors.background)
+                Icon(
+                    Icons.Filled.ArrowDropDown,
+                    "Trailing icon for exposed dropdown menu",
+                    Modifier
+                        .rotate(
+                            if (expanded)
+                                180f
+                            else
+                                360f
+                        ),
+                    tint = MaterialTheme.colors.background,
+
+                    )
             }
 
             ExposedDropdownMenu(
