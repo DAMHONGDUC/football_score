@@ -4,7 +4,7 @@ import com.football_score.data.remote.entity.*
 import com.football_score.domain.model.*
 
 data class MatchResponseAPIEntity(
-    val events: List<EventAPIEntity>,
+    val events: List<EventAPIEntity>?,
     val fixture: FixtureAPIEntity,
     val goals: GoalsAPIEntity,
     val league: LeagueAPIEntity,

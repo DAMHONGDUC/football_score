@@ -22,6 +22,9 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
     private val _liveMatches = MutableStateFlow<ViewModelState<MatchResponse>>(ViewModelState.Empty)
     val liveMatches: StateFlow<ViewModelState<MatchResponse>> = _liveMatches
 
+    private val _hotMatches = MutableStateFlow<ViewModelState<MatchResponse>>(ViewModelState.Empty)
+    val hotMatches: StateFlow<ViewModelState<MatchResponse>> = _hotMatches
+
     private val _leagueTeam =
         MutableStateFlow<ViewModelState<LeagueTeamResponse>>(ViewModelState.Empty)
     val leagueTeam: StateFlow<ViewModelState<LeagueTeamResponse>> = _leagueTeam
@@ -31,7 +34,7 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
         getLeagueTeam();
     }
 
-    public fun getLeagueTeam() {
+    fun getLeagueTeam() {
         _leagueTeam.value = ViewModelState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -50,7 +53,7 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
         }
     }
 
-    public fun getAllLiveMatch() {
+    fun getAllLiveMatch() {
         _liveMatches.value = ViewModelState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -65,6 +68,25 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
                 _liveMatches.value = ViewModelState.Error("Internet issue")
             } catch (e: IOException) {
                 _liveMatches.value = ViewModelState.Error("Something wrong")
+            }
+        }
+    }
+
+    fun getHotMatches() {
+        _hotMatches.value = ViewModelState.Loading
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val call = async { useCase.getHotMatches() }
+
+            try {
+                val hotMatchesResponse = call.await()
+
+                _hotMatches.value = ViewModelState.Success(data = hotMatchesResponse)
+            } catch (e: HttpException) {
+                _hotMatches.value = ViewModelState.Error("Internet issue")
+            } catch (e: IOException) {
+                _hotMatches.value = ViewModelState.Error("Something wrong")
             }
         }
     }

@@ -1,25 +1,20 @@
 package com.football_score.presentation.screens.home
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Autorenew
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -30,7 +25,7 @@ import com.football_score.domain.model.Match
 import com.football_score.domain.model.response.ViewModelState
 import com.football_score.presentation.components.AppHeader
 import com.football_score.presentation.components.LiveMatchCard
-
+import com.football_score.presentation.components.TeamComponentHorizontal
 
 @Composable
 fun HomeScreen(
@@ -48,7 +43,6 @@ fun HomeScreen(
     LaunchedEffect(isReload) {
         if (isReload) {
             homeViewModel.getAllLiveMatch();
-            //homeViewModel.getLeagueTeam();
 
             setIsReload(false);
         }
@@ -75,7 +69,10 @@ fun HomeScreen(
                 when (leagueTeams) {
                     is ViewModelState.Empty -> Text(text = "No leagueTeams data available")
                     is ViewModelState.Loading -> Text(text = "leagueTeams Loading...")
-                    is ViewModelState.Success -> HotMatch(listLeagueTeam = leagueTeams.data.response)
+                    is ViewModelState.Success -> HotMatch(
+                        homeViewModel = homeViewModel,
+                        listLeagueTeam = leagueTeams.data.response
+                    )
                     is ViewModelState.Error -> Text(text = leagueTeams.message)
                 }
             }
@@ -85,11 +82,14 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ExposedDropdownLeagueTeam(listLeagueTeam: List<LeagueTeam>) {
+fun ExposedDropdownLeagueTeam(
+    listLeagueTeam: List<LeagueTeam>,
+    selectedTeam: LeagueTeam,
+    setSelectedTeam: (LeagueTeam) -> Unit
+) {
     val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-    var selectedItem by remember { mutableStateOf(listLeagueTeam[0]) }
     val dropdownWidth = 250.dp;
+    var expanded by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -115,13 +115,13 @@ fun ExposedDropdownLeagueTeam(listLeagueTeam: List<LeagueTeam>) {
             ) {
 
                 AsyncImage(
-                    model = selectedItem.team.logo,
+                    model = selectedTeam.team.logo,
                     contentDescription = null,
                     modifier = Modifier
                         .width(30.dp)
                         .padding(PaddingValues(start = 6.dp))
                 )
-                Text(text = selectedItem.team.name, color = MaterialTheme.colors.background)
+                Text(text = selectedTeam.team.name, color = MaterialTheme.colors.background)
                 Icon(
                     Icons.Filled.ArrowDropDown,
                     "Trailing icon for exposed dropdown menu",
@@ -159,12 +159,13 @@ fun ExposedDropdownLeagueTeam(listLeagueTeam: List<LeagueTeam>) {
 
                         },
                         onClick = {
-                            selectedItem = item
+                            setSelectedTeam(item)
                             expanded = false
                             Toast.makeText(context, item.team.name, Toast.LENGTH_SHORT).show()
                         }
                     )
                 }
+
             }
         }
     }
@@ -178,7 +179,7 @@ fun LiveMatch(listLiveMatch: List<Match>) {
             style = MaterialTheme.typography.h2,
             color = MaterialTheme.colors.onBackground
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(7.dp))
 
         if (listLiveMatch.isEmpty()) {
             Text(text = "No Live Match", modifier = Modifier.padding(10.dp))
@@ -197,7 +198,16 @@ fun LiveMatch(listLiveMatch: List<Match>) {
 }
 
 @Composable
-fun HotMatch(listLeagueTeam: List<LeagueTeam>) {
+fun HotMatch(homeViewModel: HomeViewModel, listLeagueTeam: List<LeagueTeam>) {
+
+    val (selectedTeam, setSelectedTeam) = remember { mutableStateOf(listLeagueTeam[0]) }
+    val hotMatches = homeViewModel.hotMatches.collectAsState().value
+
+    LaunchedEffect(selectedTeam)
+    {
+        homeViewModel.getHotMatches()
+    }
+
     Column() {
         Text(
             text = "Hot Match",
@@ -205,10 +215,50 @@ fun HotMatch(listLeagueTeam: List<LeagueTeam>) {
             color = MaterialTheme.colors.onBackground
         )
 
+        Spacer(modifier = Modifier.height(7.dp))
+
         if (listLeagueTeam.isEmpty()) {
             Text(text = "No League Team", modifier = Modifier.padding(10.dp))
         } else {
-            ExposedDropdownLeagueTeam(listLeagueTeam = listLeagueTeam)
+            ExposedDropdownLeagueTeam(
+                listLeagueTeam = listLeagueTeam,
+                selectedTeam = selectedTeam,
+                setSelectedTeam = setSelectedTeam
+            )
+            when (hotMatches) {
+                is ViewModelState.Empty -> Text(text = "No hotMatches data available")
+                is ViewModelState.Loading -> Text(text = "hotMatches Loading...")
+                is ViewModelState.Success -> ListHotMatches(hotMatches = hotMatches.data.response)
+                is ViewModelState.Error -> Text(text = hotMatches.message)
+            }
+        }
+    }
+}
+
+@Composable
+fun ListHotMatches(hotMatches: List<Match>) {
+    Column(
+        Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(top = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
+        hotMatches.forEach { item ->
+            Row(
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colors.onSecondary,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(15.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+
+                TeamComponentHorizontal(team = item.teams.home, reverse = false)
+                TeamComponentHorizontal(team = item.teams.away, reverse = true)
+
+            }
         }
     }
 }

@@ -5,8 +5,6 @@ import com.football_score.domain.model.response.MatchResponse
 
 interface MatchRepository {
     suspend fun getAllLiveMatch(): MatchResponse
-
-    suspend fun getAllHotMatch(): MatchResponse
-
     suspend fun getLeagueTeam( ): LeagueTeamResponse
+    suspend fun getHotMatches(): MatchResponse
 }
