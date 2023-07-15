@@ -3,7 +3,7 @@ package com.football_score.utils
 object Constants {
 
 //    const val BASE_URL: String = "https://v3.football.api-sports.io"
-    const val BASE_URL: String = "https://0595-2402-800-63b7-d318-a807-4ef2-3a2d-f994.ap.ngrok.io"
+    const val BASE_URL: String = "https://80f8-14-241-241-177.ngrok.io"
     const val X_RAPIDAPI_HOST: String = "v3.football.api-sports.io"
     const val X_RAPIDAPI_KEY: String = "3e7eee2b95455986556d8ecbe37b78f7"
 }

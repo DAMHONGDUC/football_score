@@ -1,0 +1,19 @@
+Figma: https://www.figma.com/file/SH21hTGfn5d3fv1xlHDvnF/Live-Score-UI-KIT-(FREEBIES)-%E2%9A%BD%EF%B8%8F-(Community)?type=design&node-id=0-1&t=mvmU9mipS9PDBA5P-0
+https://dribbble.com/shots/16789816-Football-Live-Score-App
+
+API: https://dashboard.api-football.com/
+
+
+docs: https://docs.football-data.org/general/v4/competition.html
+token: 7bdd4f76328c403f8e84897c4456c3d8
+
+
+// cmd
+
+npm start
+
+ngrok http 3000
+
+http://localhost:3000/live_match
+
+https://0655-1-53-74-64.ap.ngrok.io/live_match

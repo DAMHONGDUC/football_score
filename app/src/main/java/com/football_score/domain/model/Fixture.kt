@@ -6,7 +6,7 @@ data class Fixture(
     val periods: Periods,
     val referee: String?,
     val status: Status,
-    val timestamp: Int,
+    val timestamp: Long,
     val timezone: String,
     val venue: Venue
 )

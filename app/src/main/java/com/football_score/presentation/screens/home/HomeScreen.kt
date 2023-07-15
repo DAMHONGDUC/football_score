@@ -25,7 +25,7 @@ import com.football_score.domain.model.Match
 import com.football_score.domain.model.response.ViewModelState
 import com.football_score.presentation.components.AppHeader
 import com.football_score.presentation.components.LiveMatchCard
-import com.football_score.presentation.components.TeamComponentHorizontal
+import com.football_score.presentation.components.HotMatchCard
 
 @Composable
 fun HomeScreen(
@@ -93,6 +93,7 @@ fun ExposedDropdownLeagueTeam(
 
     Box(
         modifier = Modifier
+            .padding(bottom = 15.dp)
             .fillMaxWidth()
     ) {
 
@@ -239,26 +240,12 @@ fun HotMatch(homeViewModel: HomeViewModel, listLeagueTeam: List<LeagueTeam>) {
 fun ListHotMatches(hotMatches: List<Match>) {
     Column(
         Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(top = 20.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         hotMatches.forEach { item ->
-            Row(
-                modifier = Modifier
-                    .background(
-                        color = MaterialTheme.colors.onSecondary,
-                        shape = RoundedCornerShape(20.dp)
-                    )
-                    .padding(15.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-
-                TeamComponentHorizontal(team = item.teams.home, reverse = false)
-                TeamComponentHorizontal(team = item.teams.away, reverse = true)
-
-            }
+            HotMatchCard(match = item)
         }
     }
 }
+

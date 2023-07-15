@@ -52,31 +52,11 @@ fun LiveMatchCard(match: Match) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ClubItem(team = match.teams.home)
+                ClubItemVertical(team = match.teams.home)
                 MatchInfo(goals = match.goals, status = match.fixture.status)
-                ClubItem(team = match.teams.away)
+                ClubItemVertical(team = match.teams.away)
             }
         }
-    }
-}
-
-@Composable
-fun ClubItem(team: Team) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(80.dp)) {
-        AsyncImage(
-            model = team.logo,
-            contentDescription = null,
-            modifier = Modifier
-                .width(50.dp)
-                .height((50.dp))
-        )
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(
-            text = team.name,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h5,
-            color = MaterialTheme.colors.background
-        )
     }
 }
 

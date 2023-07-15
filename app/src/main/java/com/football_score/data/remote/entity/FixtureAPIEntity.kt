@@ -8,7 +8,7 @@ data class FixtureAPIEntity(
     val periods: PeriodsAPIEntity,
     val referee: String?,
     val status: StatusAPIEntity,
-    val timestamp: Int,
+    val timestamp: Long,
     val timezone: String,
     val venue: VenueAPIEntity
 )
