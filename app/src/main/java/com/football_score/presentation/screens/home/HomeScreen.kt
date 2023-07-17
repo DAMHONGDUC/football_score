@@ -1,5 +1,6 @@
 package com.football_score.presentation.screens.home
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -206,7 +207,8 @@ fun HotMatch(homeViewModel: HomeViewModel, listLeagueTeam: List<LeagueTeam>) {
 
     LaunchedEffect(selectedTeam)
     {
-        homeViewModel.getHotMatches()
+        Log.d("DEBUG_HOME_SCREEN", selectedTeam.team.id.toString())
+        homeViewModel.getHotMatches(selectedTeam.team.id)
     }
 
     Column() {

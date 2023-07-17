@@ -18,11 +18,11 @@ interface FootballAPIService {
         @Query("country") country: String?,
     ): BaseLeagueTeamResponseAPIEntity
 
-    @GET(EndPoint.TEAMS)
+    @GET(EndPoint.FIXTURES)
     suspend fun getHotMatches(
         @Query("league") league: String?,
         @Query("season") season: String?,
-        @Query("team") team: String?,
+        @Query("team") teamId: String?,
         @Query("from") from: String?,
         @Query("to") to: String?,
     ): BaseMatchResponseAPIEntity
