@@ -77,7 +77,7 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val call = async { useCase.getHotMatches(teamId)}
+            val call = async { useCase.getHotMatches(teamId) }
 
             try {
                 val hotMatchesResponse = call.await()
