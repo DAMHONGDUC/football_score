@@ -18,7 +18,7 @@ class MatchRepositoryImpl @Inject constructor(private val footballAPIService: Fo
             season = "2022",
             teamId = teamId.toString(),
             from = "2023-01-19",
-            to = "2023-06-19"
+            to = "2023-09-19"
         ).toDomain();
 
     override suspend fun getLeagueTeam(): LeagueTeamResponse =

@@ -1,7 +1,9 @@
 package com.football_score.presentation.components
 
+import android.os.Debug
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -12,11 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.football_score.domain.model.Match
 
 @Composable
-fun HotMatchCard(match: Match) {
+fun HotMatchCard(match: Match, navController: NavHostController) {
     val ClubIConSize = 35.dp;
 
     Row(
@@ -26,7 +29,8 @@ fun HotMatchCard(match: Match) {
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(10.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { navController.navigate("match_detail") },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

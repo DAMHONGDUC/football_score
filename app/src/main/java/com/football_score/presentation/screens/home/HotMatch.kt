@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.football_score.domain.model.LeagueTeam
 import com.football_score.domain.model.Match
@@ -23,7 +24,11 @@ import com.football_score.domain.model.response.ViewModelState
 import com.football_score.presentation.components.HotMatchCard
 
 @Composable
-fun HotMatch(homeViewModel: HomeViewModel, listLeagueTeam: List<LeagueTeam>) {
+fun HotMatch(
+    homeViewModel: HomeViewModel,
+    listLeagueTeam: List<LeagueTeam>,
+    navController: NavHostController,
+) {
 
     val (selectedTeam, setSelectedTeam) = remember { mutableStateOf(listLeagueTeam[0]) }
     val hotMatches = homeViewModel.hotMatches.collectAsState().value
@@ -54,7 +59,10 @@ fun HotMatch(homeViewModel: HomeViewModel, listLeagueTeam: List<LeagueTeam>) {
             when (hotMatches) {
                 is ViewModelState.Empty -> Text(text = "No hotMatches data available")
                 is ViewModelState.Loading -> Text(text = "hotMatches Loading...")
-                is ViewModelState.Success -> ListHotMatches(hotMatches = hotMatches.data.response)
+                is ViewModelState.Success -> ListHotMatches(
+                    hotMatches = hotMatches.data.response,
+                    navController = navController
+                )
                 is ViewModelState.Error -> Text(text = hotMatches.message)
             }
         }
@@ -154,14 +162,14 @@ fun ExposedDropdownLeagueTeam(
 }
 
 @Composable
-fun ListHotMatches(hotMatches: List<Match>) {
+fun ListHotMatches(hotMatches: List<Match>, navController: NavHostController) {
     Column(
         Modifier
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         hotMatches.forEach { item ->
-            HotMatchCard(match = item)
+            HotMatchCard(match = item, navController = navController)
         }
     }
 }

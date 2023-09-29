@@ -85,7 +85,8 @@ fun HomeScreen(
                     is ViewModelState.Loading -> Text(text = "leagueTeams Loading...")
                     is ViewModelState.Success -> HotMatch(
                         homeViewModel = homeViewModel,
-                        listLeagueTeam = leagueTeams.data.response
+                        listLeagueTeam = leagueTeams.data.response,
+                        navController = navController,
                     )
                     is ViewModelState.Error -> Text(text = "somthing wrong")
                 }
